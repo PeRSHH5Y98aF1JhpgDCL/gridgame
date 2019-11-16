@@ -1,0 +1,73 @@
+<p id="r">hello world</p>
+<script>
+var player={pos:[0,0]}
+function thing(sym) {
+	this.symbol=sym
+}
+var buildsymbols = ["█","#","w","L","⅃","⅂","Γ","|","_","-","=","T"]
+var buildsymbolnum=0
+var things = {"1,1":new thing("s")}
+document.onkeypress = function (e) {
+    e = e || window.event;
+    // use e.keyCode
+	console.log(e.keyCode)
+	if (e.keyCode==97) {
+		if (((''+player.pos[0]+","+(player.pos[1]-1)) in things)) {
+			if (things[''+player.pos[0]+","+(player.pos[1]-1)].symbol=="#"){player.pos[1]=player.pos[1]-1}
+		} else {
+			player.pos[1]=player.pos[1]-1
+		}
+	} else if (e.keyCode==100) {
+		if (((''+player.pos[0]+","+(player.pos[1]+1)) in things)) {
+			if (things[''+player.pos[0]+","+(player.pos[1]+1)].symbol=="#"){player.pos[1]=player.pos[1]+1}
+		} else {
+			player.pos[1]=player.pos[1]+1
+		}
+	} else if (e.keyCode==119) {
+		if (((''+(player.pos[0]-1)+","+(player.pos[1])) in things)) {
+			if (things[(''+(player.pos[0]-1)+","+(player.pos[1]))].symbol=="#"){player.pos[0]=player.pos[0]-1}
+		} else {
+			player.pos[0]=player.pos[0]-1
+		}
+	} else if (e.keyCode==115) {
+		if (((''+(player.pos[0]+1)+","+(player.pos[1])) in things)) {
+			if (things[(''+(player.pos[0]+1)+","+(player.pos[1]))].symbol=="#"){player.pos[0]=player.pos[0]+1}
+		} else {
+			player.pos[0]=player.pos[0]+1
+		}
+	} else if (e.keyCode==98) {
+		things[""+(player.pos[0])+','+player.pos[1]]=new thing(buildsymbols[buildsymbolnum % (buildsymbols.length)])
+	} else if (e.keyCode==120) {
+		delete things[(''+(player.pos[0]+1)+","+(player.pos[1]))]
+		delete things[(''+(player.pos[0]-1)+","+(player.pos[1]))]
+		delete things[(''+(player.pos[0])+","+(player.pos[1]-1))]
+		delete things[(''+(player.pos[0])+","+(player.pos[1]+1))]
+	} else if (e.keyCode==99) {
+		buildsymbolnum++
+	}
+	let str=""
+	console.log("run for")
+	for (var i=-15;i<15;i++) {
+		for (var j=-15;j<15;j++) {
+		console.log("run if")
+			if (!(i==0&&j==0)) {
+			if (!!things[''+(i+player.pos[0])+','+(j+player.pos[1])]) {
+				str += things[''+(i+player.pos[0])+','+(j+player.pos[1])].symbol
+				console.log(things[''+(i+player.pos[0])+','+(j+player.pos[1])].symbol)
+			} else {
+				str+="&nbsp;"
+			}} else {
+				str+="O"
+			}
+		}
+		str += "<br>"
+	}
+	str+="<br>build:"+buildsymbols[buildsymbolnum % (buildsymbols.length)]
+	document.getElementById("r").innerHTML=str
+};
+</script>
+<style>
+* {
+	font-family:monospace;
+}
+</style>
