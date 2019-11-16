@@ -1,4 +1,4 @@
-<p id="r">hello world</p>
+<p id="r">controls:WASD,C:rotate build,B:build,X:remove</p>
 <script>
 var player={pos:[0,0]}
 function thing(sym) {
@@ -62,7 +62,7 @@ document.onkeypress = function (e) {
 		}
 		str += "<br>"
 	}
-	str+="<br>build:"+buildsymbols[buildsymbolnum % (buildsymbols.length)]
+	str+="<br>build:"+buildsymbols[buildsymbolnum % (buildsymbols.length)]+"<br>controls:WASD,C:rotate build,B:build,X:remove"
 	document.getElementById("r").innerHTML=str
 };
 </script>
